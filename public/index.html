@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SSAC Media Startups</title>
+  <meta name="description" content="Startup participation form for the Sports Analytics Media section of the MIT Sloan Sports Analytics Conference." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">
+      <span class="brand-mark">SSAC</span>
+      <span class="brand-text">MIT Sloan Sports Analytics Conference</span>
+    </a>
+    <span class="pill">Startup Showcase · Sports Analytics Media</span>
+  </header>
+
+  <section class="hero">
+    <p class="eyebrow">Startup Participation</p>
+    <h1>Where data meets <span>the story.</span></h1>
+    <p class="lede">
+      Building the next wave of sports analytics media? Tell us about your company,
+      your audience and your traction. Selected startups will be featured in the
+      Sports Analytics Media section of the conference.
+    </p>
+    <div class="hero-stats">
+      <div><strong>~10 min</strong>to complete</div>
+      <div><strong>5</strong>sections</div>
+      <div><strong>1</strong>category: media</div>
+    </div>
+  </section>
+
+  <main>
+    <form id="startup-form" novalidate>
+      <fieldset>
+        <legend><span class="num">01</span> Company</legend>
+        <p class="section-note">The basics about your startup.</p>
+        <div class="grid">
+          <div>
+            <label for="company_name">Company name <span class="req">*</span></label>
+            <input id="company_name" name="company_name" type="text" required autocomplete="organization" />
+          </div>
+          <div>
+            <label for="website">Website <span class="req">*</span></label>
+            <input id="website" name="website" type="url" required placeholder="https://" />
+          </div>
+          <div>
+            <label for="founded_year">Year founded</label>
+            <input id="founded_year" name="founded_year" type="number" min="1990" max="2030" placeholder="2023" />
+          </div>
+          <div>
+            <label for="headquarters">Headquarters</label>
+            <input id="headquarters" name="headquarters" type="text" placeholder="City, Country" />
+          </div>
+          <div>
+            <label for="team_size">Team size</label>
+            <select id="team_size" name="team_size">
+              <option value="">Select…</option>
+              <option>1–5</option>
+              <option>6–15</option>
+              <option>16–50</option>
+              <option>51–200</option>
+              <option>200+</option>
+            </select>
+          </div>
+          <div>
+            <label for="pitch_deck_url">Pitch deck link<span class="hint">DocSend, Google Drive, etc.</span></label>
+            <input id="pitch_deck_url" name="pitch_deck_url" type="url" placeholder="https://" />
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="num">02</span> Primary contact</legend>
+        <p class="section-note">Who should we reach out to about participation?</p>
+        <div class="grid">
+          <div>
+            <label for="contact_name">Full name <span class="req">*</span></label>
+            <input id="contact_name" name="contact_name" type="text" required autocomplete="name" />
+          </div>
+          <div>
+            <label for="contact_title">Title</label>
+            <input id="contact_title" name="contact_title" type="text" placeholder="Co-founder & CEO" />
+          </div>
+          <div>
+            <label for="contact_email">Email <span class="req">*</span></label>
+            <input id="contact_email" name="contact_email" type="email" required autocomplete="email" />
+          </div>
+          <div>
+            <label for="contact_phone">Phone</label>
+            <input id="contact_phone" name="contact_phone" type="tel" autocomplete="tel" />
+          </div>
+          <div class="full">
+            <label for="linkedin">LinkedIn</label>
+            <input id="linkedin" name="linkedin" type="url" placeholder="https://linkedin.com/in/…" />
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="num">03</span> Media focus</legend>
+        <div class="category-lock" style="margin:14px 0 22px">Section · Sports Analytics Media</div>
+        <div class="grid">
+          <div class="full">
+            <span class="label">What do you build? <span class="req">*</span><span class="hint">Choose all that apply.</span></span>
+            <div class="chips" id="media_focus">
+              <label class="chip"><input type="checkbox" name="media_focus" value="Data journalism / editorial" /><span>Data journalism / editorial</span></label>
+              <label class="chip"><input type="checkbox" name="media_focus" value="Podcast / audio" /><span>Podcast / audio</span></label>
+              <label class="chip"><input type="checkbox" name="media_focus" value="Video / streaming" /><span>Video / streaming</span></label>
+              <label class="chip"><input type="checkbox" name="media_focus" value="Broadcast graphics & visualization" /><span>Broadcast graphics &amp; visualization</span></label>
+              <label class="chip"><input type="checkbox" name="media_focus" value="Newsletter / creator" /><span>Newsletter / creator</span></label>
+              <label class="chip"><input type="checkbox" name="media_focus" value="Fan engagement & social" /><span>Fan engagement &amp; social</span></label>
+              <label class="chip"><input type="checkbox" name="media_focus" value="Betting & fantasy content" /><span>Betting &amp; fantasy content</span></label>
+              <label class="chip"><input type="checkbox" name="media_focus" value="AI-generated content" /><span>AI-generated content</span></label>
+              <label class="chip"><input type="checkbox" name="media_focus" value="Stats & data platform" /><span>Stats &amp; data platform</span></label>
+              <label class="chip"><input type="checkbox" name="media_focus" value="Other" /><span>Other</span></label>
+            </div>
+          </div>
+          <div class="full">
+            <label for="one_liner">One-line pitch <span class="req">*</span><span class="hint">140 characters max.</span></label>
+            <input id="one_liner" name="one_liner" type="text" maxlength="140" required placeholder="We turn tracking data into broadcast-ready stories in seconds." />
+          </div>
+          <div class="full">
+            <label for="description">What you do &amp; why it matters <span class="req">*</span></label>
+            <textarea id="description" name="description" required placeholder="Product, customers, the analytics edge behind your media…"></textarea>
+          </div>
+          <div class="full">
+            <label for="audience_reach">Audience &amp; reach<span class="hint">Monthly users, subscribers, downloads, distribution partners…</span></label>
+            <input id="audience_reach" name="audience_reach" type="text" placeholder="e.g. 250K monthly listeners, 40K newsletter subs" />
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="num">04</span> Funding</legend>
+        <p class="section-note">Help us understand where you are on the journey.</p>
+        <div class="grid">
+          <div>
+            <label for="money_raised">Total money raised (USD) <span class="req">*</span><span class="hint">Enter 0 if bootstrapped.</span></label>
+            <div class="money">
+              <input id="money_raised" name="money_raised" type="text" inputmode="numeric" required placeholder="0" autocomplete="off" />
+            </div>
+            <div class="money-readout" id="money_readout"></div>
+          </div>
+          <div>
+            <label for="funding_stage">Current stage <span class="req">*</span></label>
+            <select id="funding_stage" name="funding_stage" required>
+              <option value="">Select…</option>
+              <option>Bootstrapped</option>
+              <option>Pre-seed</option>
+              <option>Seed</option>
+              <option>Series A</option>
+              <option>Series B</option>
+              <option>Series C+</option>
+            </select>
+          </div>
+          <div>
+            <label for="last_round_date">Most recent round</label>
+            <input id="last_round_date" name="last_round_date" type="month" />
+          </div>
+          <div>
+            <label for="revenue_stage">Revenue</label>
+            <select id="revenue_stage" name="revenue_stage">
+              <option value="">Select…</option>
+              <option>Pre-revenue</option>
+              <option>Under $100K ARR</option>
+              <option>$100K–$1M ARR</option>
+              <option>$1M–$5M ARR</option>
+              <option>$5M+ ARR</option>
+            </select>
+          </div>
+          <div class="full">
+            <label for="lead_investors">Notable investors</label>
+            <input id="lead_investors" name="lead_investors" type="text" placeholder="Funds, angels, team or league partners" />
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="num">05</span> Conference</legend>
+        <div class="grid">
+          <div>
+            <label for="attended_before">Been to SSAC before?</label>
+            <select id="attended_before" name="attended_before">
+              <option value="">Select…</option>
+              <option>No, first time</option>
+              <option>Yes, as an attendee</option>
+              <option>Yes, as a startup / exhibitor</option>
+              <option>Yes, as a speaker</option>
+            </select>
+          </div>
+          <div class="full">
+            <span class="label">How would you like to participate?<span class="hint">Choose all that apply.</span></span>
+            <div class="chips">
+              <label class="chip"><input type="checkbox" name="participation" value="Showcase booth" /><span>Showcase booth</span></label>
+              <label class="chip"><input type="checkbox" name="participation" value="Pitch competition" /><span>Pitch competition</span></label>
+              <label class="chip"><input type="checkbox" name="participation" value="Live demo" /><span>Live demo</span></label>
+              <label class="chip"><input type="checkbox" name="participation" value="Panel / speaking" /><span>Panel / speaking</span></label>
+              <label class="chip"><input type="checkbox" name="participation" value="Investor meetings" /><span>Investor meetings</span></label>
+              <label class="chip"><input type="checkbox" name="participation" value="Media partnership" /><span>Media partnership</span></label>
+            </div>
+          </div>
+          <div class="full">
+            <label for="notes">Anything else?</label>
+            <textarea id="notes" name="notes" placeholder="Demo needs, partnerships, questions…"></textarea>
+          </div>
+          <div class="full">
+            <label class="consent">
+              <input type="checkbox" id="consent" required />
+              <span>I confirm this information is accurate and agree to be contacted about the MIT Sloan Sports Analytics Conference. Funding details are used for selection only.</span>
+            </label>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="submit-row">
+        <button class="btn" type="submit" id="submit-btn">Submit application &rarr;</button>
+        <span class="form-error" id="form-error" role="alert"></span>
+      </div>
+    </form>
+
+    <section class="success" id="success" aria-live="polite">
+      <div class="check">&#10003;</div>
+      <h2>You're in the queue</h2>
+      <p>Thanks for applying to the Sports Analytics Media section. Our startup team will review your submission and reach out by email.</p>
+      <button class="btn ghost" type="button" id="again">Submit another startup</button>
+    </section>
+  </main>
+
+  <footer>
+    <span>Startup participation · Sports Analytics Media</span>
+    <span>Questions? Reply to your invitation email.</span>
+  </footer>
+
+  <script>
+    const form = document.getElementById('startup-form');
+    const errorEl = document.getElementById('form-error');
+    const btn = document.getElementById('submit-btn');
+    const money = document.getElementById('money_raised');
+    const readout = document.getElementById('money_readout');
+
+    function compact(n) {
+      if (n >= 1e9) return '$' + (n / 1e9).toFixed(n % 1e9 ? 1 : 0) + 'B';
+      if (n >= 1e6) return '$' + (n / 1e6).toFixed(n % 1e6 ? 1 : 0) + 'M';
+      if (n >= 1e3) return '$' + (n / 1e3).toFixed(n % 1e3 ? 1 : 0) + 'K';
+      return '$' + n;
+    }
+
+    money.addEventListener('input', () => {
+      const digits = money.value.replace(/[^\d]/g, '');
+      money.value = digits ? Number(digits).toLocaleString('en-US') : '';
+      readout.textContent = digits ? compact(Number(digits)) + ' raised to date' : '';
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorEl.textContent = '';
+
+      const focusChecked = form.querySelectorAll('input[name="media_focus"]:checked').length;
+      if (!form.checkValidity() || !focusChecked) {
+        form.querySelectorAll('input, select, textarea').forEach((el) => el.dispatchEvent(new Event('blur')));
+        const firstBad = form.querySelector(':invalid');
+        errorEl.textContent = !focusChecked && (!firstBad || firstBad.id === 'consent')
+          ? 'Pick at least one media focus.'
+          : 'Please fill in the highlighted required fields.';
+        (firstBad || document.getElementById('media_focus')).scrollIntoView({ behavior: 'smooth', block: 'center' });
+        form.reportValidity();
+        return;
+      }
+
+      const data = {};
+      for (const [k, v] of new FormData(form)) {
+        data[k] = k in data ? [].concat(data[k], v) : v;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Submitting…';
+      try {
+        const res = await fetch('/api/submissions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const out = await res.json();
+        if (!res.ok) throw new Error((out.errors || ['Something went wrong']).join('; '));
+        form.style.display = 'none';
+        document.getElementById('success').classList.add('show');
+        window.scrollTo({ top: document.querySelector('main').offsetTop - 20, behavior: 'smooth' });
+      } catch (err) {
+        errorEl.textContent = err.message;
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = 'Submit application &rarr;';
+      }
+    });
+
+    document.getElementById('again').addEventListener('click', () => {
+      form.reset();
+      readout.textContent = '';
+      form.style.display = '';
+      document.getElementById('success').classList.remove('show');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "ssac-media-startup-form",
+  "version": "1.0.0",
+  "description": "Startup participation form + database for the Sports Analytics Media section of the MIT Sloan Sports Analytics Conference",
+  "main": "server.js",
+  "scripts": {
+    "start": "node --no-warnings server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tatianameduna-commits/Sport-Form.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tatianameduna-commits/Sport-Form/issues"
+  },
+  "homepage": "https://github.com/tatianameduna-commits/Sport-Form#readme",
+  "dependencies": {
+    "express": "^4.22.3"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "private": true
+}

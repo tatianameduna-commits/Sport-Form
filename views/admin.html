@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Startup Submissions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">
+      <span class="brand-mark">SSAC</span>
+      <span class="brand-text">Media Startups · Admin</span>
+    </a>
+    <a class="btn ghost" href="/api/submissions.csv" style="padding:10px 18px;font-size:15px">Export CSV</a>
+  </header>
+
+  <main class="admin-main">
+    <p class="eyebrow">Sports Analytics Media</p>
+    <div class="stat-row">
+      <div class="stat"><div class="k">Applications</div><div class="v" id="s-count">–</div></div>
+      <div class="stat"><div class="k">Total raised</div><div class="v" id="s-total">–</div></div>
+      <div class="stat"><div class="k">Avg raised</div><div class="v" id="s-avg">–</div></div>
+    </div>
+
+    <div class="toolbar">
+      <input type="text" id="search" placeholder="Search company, contact, focus…" />
+      <select id="stage-filter" style="max-width:200px">
+        <option value="">All stages</option>
+        <option>Bootstrapped</option><option>Pre-seed</option><option>Seed</option>
+        <option>Series A</option><option>Series B</option><option>Series C+</option>
+      </select>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th data-sort="company_name">Company</th>
+            <th data-sort="contact_name">Contact</th>
+            <th data-sort="media_focus">Focus</th>
+            <th data-sort="funding_stage">Stage</th>
+            <th data-sort="money_raised">Raised</th>
+            <th data-sort="created_at">Submitted</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    const LABELS = {
+      website: 'Website', founded_year: 'Founded', headquarters: 'HQ', team_size: 'Team size',
+      contact_title: 'Title', contact_email: 'Email', contact_phone: 'Phone', linkedin: 'LinkedIn',
+      one_liner: 'One-liner', description: 'Description', audience_reach: 'Audience & reach',
+      last_round_date: 'Last round', lead_investors: 'Investors', revenue_stage: 'Revenue',
+      pitch_deck_url: 'Pitch deck', attended_before: 'Attended before', participation: 'Participation', notes: 'Notes',
+    };
+    let all = [];
+    let sortKey = 'created_at';
+    let sortDir = -1;
+    let openId = null;
+
+    const usd = (n) => '$' + Number(n || 0).toLocaleString('en-US');
+    const compact = (n) => n >= 1e6 ? '$' + (n / 1e6).toFixed(1) + 'M' : n >= 1e3 ? '$' + (n / 1e3).toFixed(0) + 'K' : '$' + Math.round(n);
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const linkish = (v) => /^https?:\/\//i.test(v) ? `<a href="${esc(v)}" target="_blank" rel="noopener">${esc(v)}</a>` : esc(v);
+
+    async function load() {
+      const res = await fetch('/api/submissions');
+      const { rows, stats } = await res.json();
+      all = rows;
+      document.getElementById('s-count').textContent = stats.count;
+      document.getElementById('s-total').textContent = compact(stats.total_raised);
+      document.getElementById('s-avg').textContent = compact(stats.avg_raised);
+      render();
+    }
+
+    function render() {
+      const q = document.getElementById('search').value.toLowerCase();
+      const stage = document.getElementById('stage-filter').value;
+      const rows = all
+        .filter((r) => !stage || r.funding_stage === stage)
+        .filter((r) => !q || [r.company_name, r.contact_name, r.contact_email, r.media_focus, r.one_liner].join(' ').toLowerCase().includes(q))
+        .sort((a, b) => {
+          const x = a[sortKey], y = b[sortKey];
+          return (typeof x === 'number' && typeof y === 'number' ? x - y : String(x ?? '').localeCompare(String(y ?? ''))) * sortDir;
+        });
+
+      const tbody = document.getElementById('rows');
+      if (!rows.length) {
+        tbody.innerHTML = `<tr><td colspan="6" class="empty">No submissions yet.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = rows.map((r) => {
+        const focus = (r.media_focus || '').split(', ').filter(Boolean).map((f) => `<span class="tag">${esc(f)}</span>`).join('');
+        const main = `<tr class="row" data-id="${r.id}">
+          <td><strong>${esc(r.company_name)}</strong><br><span style="color:var(--muted)">${esc(r.one_liner)}</span></td>
+          <td>${esc(r.contact_name)}<br><a href="mailto:${esc(r.contact_email)}">${esc(r.contact_email)}</a></td>
+          <td>${focus}</td>
+          <td>${esc(r.funding_stage)}</td>
+          <td class="num">${usd(r.money_raised)}</td>
+          <td style="white-space:nowrap">${esc((r.created_at || '').slice(0, 10))}</td>
+        </tr>`;
+        if (openId !== r.id) return main;
+        const details = Object.entries(LABELS)
+          .filter(([k]) => r[k] != null && r[k] !== '')
+          .map(([k, label]) => `<div><div class="k">${label}</div><div class="v">${linkish(r[k])}</div></div>`).join('');
+        return main + `<tr class="detail"><td colspan="6"><div class="detail-grid">${details}</div>
+          <div style="margin-top:18px"><button class="btn ghost" style="padding:8px 14px;font-size:14px" data-del="${r.id}">Delete</button></div></td></tr>`;
+      }).join('');
+    }
+
+    document.getElementById('rows').addEventListener('click', async (e) => {
+      const del = e.target.closest('[data-del]');
+      if (del) {
+        if (!confirm('Delete this submission?')) return;
+        await fetch('/api/submissions/' + del.dataset.del, { method: 'DELETE' });
+        openId = null;
+        return load();
+      }
+      if (e.target.closest('a')) return;
+      const row = e.target.closest('tr.row');
+      if (!row) return;
+      const id = Number(row.dataset.id);
+      openId = openId === id ? null : id;
+      render();
+    });
+
+    document.querySelectorAll('th[data-sort]').forEach((th) => th.addEventListener('click', () => {
+      const k = th.dataset.sort;
+      sortDir = sortKey === k ? -sortDir : (k === 'money_raised' || k === 'created_at' ? -1 : 1);
+      sortKey = k;
+      render();
+    }));
+    document.getElementById('search').addEventListener('input', render);
+    document.getElementById('stage-filter').addEventListener('change', render);
+    load();
+  </script>
+</body>
+</html>
